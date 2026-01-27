@@ -474,7 +474,7 @@ const myElement = document.getElementById("root") as HTMLElement;
 ### 6.2 Create TodoItem Component
 
 - [x] Create file: `src/components/TodoItem.tsx`
-- [ ] Build with TypeScript:
+- [x] Build with TypeScript:
 
   ```typescript
   import React, { useState } from "react";
