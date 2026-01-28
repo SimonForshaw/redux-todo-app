@@ -19,7 +19,7 @@ Todo → TodoState → Action Types → Actions → Reducer → Store Types → 
 Define the data shape once, and TypeScript ensures everything stays consistent throughout.
 
 ## Project Structure
-
+```
 src/
 ├── components/
 │ ├── TodoForm.tsx
@@ -32,3 +32,4 @@ src/
 │ ├── hooks.ts # Typed Redux hooks
 │ └── store.ts # Store configuration
 └── App.tsx
+```
