@@ -33,23 +33,25 @@
 - [x] Install Tailwind: `npm install -D tailwindcss postcss autoprefixer`
 - [x] Initialize Tailwind: `node node_modules/tailwindcss/lib/cli.js init -p`
   - This creates `tailwind.config.js` and `postcss.config.js`
-- [ ] Open `tailwind.config.js` and replace the `content` array with:
+- [x] Open `tailwind.config.js` and replace the `content` array with:
   ```js
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"];
   ```
-- [ ] Open `src/index.css` and replace everything with:
+- [x] Open `src/index.css` and replace everything with:
+
   ```css
-  @tailwind base;
-  @tailwind components;
-  @tailwind utilities;
+  @import "tailwindcss";
   ```
-- [ ] Test Tailwind: Add `className="text-blue-500 text-2xl"` to something in `App.tsx` and verify it works
+
+  npm install -D tailwindcss@next
+
+- [x] Test Tailwind: Add `className="text-blue-500 text-2xl"` to something in `App.tsx` and verify it works
 
 ### 1.5 Clean Up Project Structure
 
-- [ ] Delete `src/App.css` (using Tailwind instead)
-- [ ] Clean out default content in `src/App.tsx` (keep just the basic component)
-- [ ] Commit: `git add .` then `git commit -m "Initial TypeScript setup with Vite, React, Redux, and Tailwind"`
+- [x] Delete `src/App.css` (using Tailwind instead)
+- [x] Clean out default content in `src/App.tsx` (keep just the basic component)
+- [x] Commit: `git add .` then `git commit -m "Initial TypeScript setup with Vite, React, Redux, and Tailwind"`
 
 ---
 
@@ -124,7 +126,7 @@ const myElement = document.getElementById("root") as HTMLElement;
 
 ### 4.1 Create Folder Structure
 
-- [ ] Create these folders in `src/`:
+- [x] Create these folders in `src/`:
   - `src/redux/`
   - `src/redux/actions/`
   - `src/redux/reducers/`
@@ -133,8 +135,8 @@ const myElement = document.getElementById("root") as HTMLElement;
 
 ### 4.2 Define TypeScript Types for Your Todo
 
-- [ ] Create file: `src/redux/types/todo.types.ts`
-- [ ] Define the Todo interface:
+- [x] Create file: `src/redux/types/todo.types.ts`
+- [x] Define the Todo interface:
 
   ```typescript
   export interface Todo {
@@ -146,7 +148,7 @@ const myElement = document.getElementById("root") as HTMLElement;
 
   **Why interface?** It describes the shape of an object (your todo)
 
-- [ ] Define the state type:
+- [x] Define the state type:
   ```typescript
   export interface TodoState {
     todos: Todo[];
@@ -156,8 +158,8 @@ const myElement = document.getElementById("root") as HTMLElement;
 
 ### 4.3 Define Action Types (Constants + TypeScript Types)
 
-- [ ] Create file: `src/redux/actions/actionTypes.ts`
-- [ ] Define action type constants:
+- [x] Create file: `src/redux/actions/actionTypes.ts`
+- [x] Define action type constants:
   ```typescript
   export const ADD_TODO = "ADD_TODO" as const;
   export const DELETE_TODO = "DELETE_TODO" as const;
@@ -168,7 +170,7 @@ const myElement = document.getElementById("root") as HTMLElement;
 
 ### 4.4 Define Action Payload Types
 
-- [ ] In the same file (`actionTypes.ts`), add:
+- [x] In the same file (`actionTypes.ts`), add:
 
   ```typescript
   import { Todo } from "../types/todo.types";
@@ -220,8 +222,8 @@ const myElement = document.getElementById("root") as HTMLElement;
 
 ### 4.5 Create Type-Safe Action Creators
 
-- [ ] Create file: `src/redux/actions/todoActions.ts`
-- [ ] Write typed action creators:
+- [x] Create file: `src/redux/actions/todoActions.ts`
+- [x] Write typed action creators:
 
   ```typescript
   import {
@@ -229,6 +231,9 @@ const myElement = document.getElementById("root") as HTMLElement;
     DELETE_TODO,
     UPDATE_TODO,
     TOGGLE_TODO,
+  } from "./actionTypes";
+
+  import type {
     AddTodoAction,
     DeleteTodoAction,
     UpdateTodoAction,
@@ -264,13 +269,13 @@ const myElement = document.getElementById("root") as HTMLElement;
 
 ### 4.6 Create the Typed Reducer
 
-- [ ] Create file: `src/redux/reducers/todoReducer.ts`
-- [ ] Import types and create reducer:
+- [x] Create file: `src/redux/reducers/todoReducer.ts`
+- [x] Import types and create reducer:
 
   ```typescript
-  import { TodoState } from "../types/todo.types";
+  import type { TodoState } from "../types/todo.types";
+  import type { TodoActionTypes } from "../actions/actionTypes";
   import {
-    TodoActionTypes,
     ADD_TODO,
     DELETE_TODO,
     UPDATE_TODO,
@@ -285,7 +290,7 @@ const myElement = document.getElementById("root") as HTMLElement;
   // Reducer function with typed parameters and return
   export const todoReducer = (
     state: TodoState = initialState,
-    action: TodoActionTypes
+    action: TodoActionTypes,
   ): TodoState => {
     switch (action.type) {
       case ADD_TODO:
@@ -313,7 +318,7 @@ const myElement = document.getElementById("root") as HTMLElement;
           todos: state.todos.map((todo) =>
             todo.id === action.payload.id
               ? { ...todo, text: action.payload.text }
-              : todo
+              : todo,
           ),
         };
 
@@ -323,7 +328,7 @@ const myElement = document.getElementById("root") as HTMLElement;
           todos: state.todos.map((todo) =>
             todo.id === action.payload.id
               ? { ...todo, completed: !todo.completed }
-              : todo
+              : todo,
           ),
         };
 
@@ -342,8 +347,8 @@ const myElement = document.getElementById("root") as HTMLElement;
 
 ### 4.7 Create the Redux Store with Types
 
-- [ ] Create file: `src/redux/store.ts`
-- [ ] Set up store and export types:
+- [x] Create file: `src/redux/store.ts`
+- [x] Set up store and export types:
 
   ```typescript
   import { createStore } from "redux";
@@ -373,13 +378,13 @@ const myElement = document.getElementById("root") as HTMLElement;
 
 ### 5.1 Provide Store to App
 
-- [ ] Open `src/main.tsx`
-- [ ] Import Provider and store:
+- [x] Open `src/main.tsx`
+- [x] Import Provider and store:
   ```typescript
   import { Provider } from "react-redux";
   import { store } from "./redux/store";
   ```
-- [ ] Wrap App with Provider:
+- [x] Wrap App with Provider:
   ```typescript
   <Provider store={store}>
     <App />
@@ -388,11 +393,15 @@ const myElement = document.getElementById("root") as HTMLElement;
 
 ### 5.2 Create Typed Redux Hooks (IMPORTANT!)
 
-- [ ] Create file: `src/redux/hooks.ts`
-- [ ] Create typed versions of useSelector and useDispatch:
+- [x] Create file: `src/redux/hooks.ts`
+- [x] Create typed versions of useSelector and useDispatch:
 
   ```typescript
-  import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
+  import {
+    useDispatch,
+    useSelector,
+    type TypedUseSelectorHook,
+  } from "react-redux";
   import type { RootState, AppDispatch } from "./store";
 
   // Typed useDispatch hook
@@ -414,11 +423,11 @@ const myElement = document.getElementById("root") as HTMLElement;
 
 ### 6.1 Create TodoForm Component
 
-- [ ] Create file: `src/components/TodoForm.tsx`
-- [ ] Build the component:
+- [x] Create file: `src/components/TodoForm.tsx`
+- [x] Build the component:
 
   ```typescript
-  import React, { useState, FormEvent } from "react";
+  import React, { useState, type FormEvent } from "react";
   import { useAppDispatch } from "../redux/hooks";
   import { addTodo } from "../redux/actions/todoActions";
 
@@ -466,8 +475,8 @@ const myElement = document.getElementById("root") as HTMLElement;
 
 ### 6.2 Create TodoItem Component
 
-- [ ] Create file: `src/components/TodoItem.tsx`
-- [ ] Build with TypeScript:
+- [x] Create file: `src/components/TodoItem.tsx`
+- [x] Build with TypeScript:
 
   ```typescript
   import React, { useState } from "react";
@@ -581,8 +590,8 @@ const myElement = document.getElementById("root") as HTMLElement;
 
 ### 6.3 Create TodoList Component
 
-- [ ] Create file: `src/components/TodoList.tsx`
-- [ ] Build with typed selector:
+- [x] Create file: `src/components/TodoList.tsx`
+- [x] Build with typed selector:
 
   ```typescript
   import React from "react";
@@ -621,8 +630,8 @@ const myElement = document.getElementById("root") as HTMLElement;
 
 ### 6.4 Update App Component
 
-- [ ] Open `src/App.tsx`
-- [ ] Import and compose:
+- [x] Open `src/App.tsx`
+- [x] Import and compose:
 
   ```typescript
   import React from "react";
@@ -654,10 +663,10 @@ const myElement = document.getElementById("root") as HTMLElement;
 
 ### 7.1 Test the App
 
-- [ ] Run: `npm run dev`
-- [ ] Test all CRUD operations
-- [ ] Try the toggle complete feature
-- [ ] Verify everything works!
+- [x] Run: `npm run dev`
+- [x] Test all CRUD operations
+- [x] Try the toggle complete feature
+- [x] Verify everything works!
 
 ### 7.2 Experience TypeScript's Benefits
 
