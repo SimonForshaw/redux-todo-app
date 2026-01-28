@@ -670,38 +670,44 @@ const myElement = document.getElementById("root") as HTMLElement;
 
 ### 7.2 Experience TypeScript's Benefits
 
-Try these experiments to see TypeScript in action:
+Try these experiments in **TodoForm.tsx** to see TypeScript catch errors before you run the code:
 
-**Experiment 1: Typo in action creator**
+**Experiment 1: Wrong argument type**
 
-- [ ] In a component, try calling `dispatch(addTod('test'))` (typo)
-- [ ] See TypeScript error before you even run the code!
+- [x] Change `dispatch(addTodo(text))` to `dispatch(addTodo(123))`
+- [x] See error: "Argument of type 'number' is not assignable to parameter of type 'string'"
+- [x] Change back to `dispatch(addTodo(text))`
 
-**Experiment 2: Wrong payload**
+**Experiment 2: Missing required argument**
 
-- [ ] Try `dispatch(addTodo(123))` (number instead of string)
-- [ ] TypeScript catches it!
+- [x] Change `dispatch(addTodo(text))` to `dispatch(addTodo())`
+- [x] See error: "Expected 1 argument, but got 0"
+- [x] Change back to `dispatch(addTodo(text))`
 
-**Experiment 3: Wrong state access**
+**Experiment 3: Wrong action structure**
 
-- [ ] In TodoList, try `useAppSelector(state => state.todoos)` (typo)
-- [ ] Immediate red squiggly line!
+- [x] Change `dispatch(addTodo(text))` to `dispatch({ type: 'ADD_TODO' })`
+- [x] See error about missing 'payload' property
+- [x] Change back to `dispatch(addTodo(text))`
 
-**Experiment 4: Missing prop**
+**Experiment 4: Wrong state property access**
 
-- [ ] Try rendering `<TodoItem />` without the `todo` prop
-- [ ] TypeScript error: "Property 'todo' is missing"
+- [x] Go to TodoList.tsx and change `state.todos` to `state.todoos` (typo)
+- [x] See error: "Property 'todoos' does not exist on type 'TodoState'. Did you mean 'todos'?"
+- [x] Change back to `state.todos`
+
+**Key Insight:** TypeScript catches all these errors **at compile-time**, before you even run the app!
 
 ### 7.3 Understand the Type Flow
 
 Trace how types flow through your app:
 
-1. **Define types**: `Todo` interface, `TodoState`, action interfaces
-2. **Type actions**: Action creators return typed actions
-3. **Type reducer**: Reducer accepts typed state and actions, returns typed state
-4. **Type store**: `RootState` and `AppDispatch` inferred from store
-5. **Type hooks**: Custom hooks use `RootState` and `AppDispatch`
-6. **Type components**: Props interfaces and typed hooks throughout
+1. **Define types**: `Todo` interface, `TodoState`, action interfaces (**`todo.types.ts`**, **`actionTypes.ts`**)
+2. **Type actions**: Action creators return typed actions (**`todoActions.ts`**)
+3. **Type reducer**: Reducer accepts typed state and actions, returns typed state (**`todoReducer.ts`**)
+4. **Type store**: `RootState` and `AppDispatch` inferred from store (**`store.ts`**)
+5. **Type hooks**: Custom hooks use `RootState` and `AppDispatch` (**`hooks.ts`**)
+6. **Type components**: Props interfaces and typed hooks throughout (**`TodoForm.tsx`**, **`TodoItem.tsx`**, **`TodoList.tsx`**)
 
 **This creates a type-safe chain from actions to state to components!**
 
@@ -711,22 +717,22 @@ Trace how types flow through your app:
 
 ### 8.1 Key Patterns You've Learned
 
-- [ ] **Always define interfaces** for your data models (Todo)
-- [ ] **Use action interfaces** for each action type
-- [ ] **Create union types** for all possible actions (TodoActionTypes)
-- [ ] **Export RootState and AppDispatch** from store
-- [ ] **Create typed hooks** (useAppSelector, useAppDispatch)
-- [ ] **Always use the typed hooks** in components, never plain ones
-- [ ] **Define Props interfaces** for components that accept props
+- **Always define interfaces** for your data models (Todo)
+- **Use action interfaces** for each action type
+- **Create union types** for all possible actions (TodoActionTypes)
+- **Export RootState and AppDispatch** from store
+- **Create typed hooks** (useAppSelector, useAppDispatch)
+- **Always use the typed hooks** in components, never plain ones
+- **Define Props interfaces** for components that accept props
 
 ### 8.2 Common TypeScript + Redux Mistakes
 
-- [ ] **DON'T** use `any` type - defeats the purpose of TypeScript
-- [ ] **DON'T** use plain `useSelector` - always use `useAppSelector`
-- [ ] **DON'T** forget `as const` on action type constants
-- [ ] **DON'T** mutate state (same rule as JavaScript Redux)
-- [ ] **DO** let TypeScript infer types when possible
-- [ ] **DO** be explicit about function return types for clarity
+- **DON'T** use `any` type - defeats the purpose of TypeScript
+- **DON'T** use plain `useSelector` - always use `useAppSelector`
+- **DON'T** forget `as const` on action type constants
+- **DON'T** mutate state (same rule as JavaScript Redux)
+- **DO** let TypeScript infer types when possible
+- **DO** be explicit about function return types for clarity
 
 ### 8.3 When You Move to Redux Toolkit
 
@@ -745,28 +751,28 @@ But understanding what you just built helps you understand what RTK abstracts aw
 
 ### 9.1 Code Review Checklist
 
-- [ ] All files use `.ts` or `.tsx` extensions
-- [ ] No `any` types anywhere
-- [ ] All components have proper prop types
-- [ ] All action creators have return types
-- [ ] Reducer has typed parameters and return
-- [ ] Custom hooks are used everywhere
-- [ ] No TypeScript errors in terminal or editor
+- [x] All files use `.ts` or `.tsx` extensions
+- [x] No `any` types anywhere
+- [x] All components have proper prop types
+- [x] All action creators have return types
+- [x] Reducer has typed parameters and return
+- [x] Custom hooks are used everywhere
+- [x] No TypeScript errors in terminal or editor
 
 ### 9.2 Add TypeScript Info to README
 
-- [ ] Update README.md to mention TypeScript usage
-- [ ] Note the type safety benefits you experienced
-- [ ] Document the type files and their purposes
+- [x] Update README.md to mention TypeScript usage
+- [x] Note the type safety benefits you experienced
+- [x] Document the type files and their purposes
 
 ### 9.3 Final Commit
 
-- [ ] Remove any console.logs
-- [ ] Format code consistently
-- [ ] Run: `npm run build` to ensure it builds without errors
-- [ ] `git add .`
-- [ ] `git commit -m "Complete Redux + TypeScript todo app with full type safety"`
-- [ ] `git push origin main`
+- [x] Remove any console.logs
+- [x] Format code consistently
+- [x] Run: `npm run build` to ensure it builds without errors
+- [x] `git add .`
+- [x] `git commit -m "Complete Redux + TypeScript todo app with full type safety"`
+- [x] `git push origin main`
 
 ---
 
@@ -831,33 +837,13 @@ But you'll **understand** RTK because you built the foundation manually!
 
 After completing this exercise, you should be able to answer:
 
-1. What is `RootState` and why do we export it?
-2. Why do we create custom typed hooks instead of using plain Redux hooks?
-3. What does `as const` do on action type constants?
-4. How does TypeScript "narrow" action types in switch cases?
-5. What's the difference between `type` and `interface` in TypeScript?
-6. Why is the union type `TodoActionTypes` important?
-7. How does `ReturnType<typeof store.getState>` work?
-8. What would happen if you removed types and used `any` everywhere?
-
-If you can answer these, you understand Redux + TypeScript! 🎉
+1. What is `RootState` and why do we export it? - **Type of entire Redux state. Exported for type-safe selectors.**
+2. Why do we create custom typed hooks instead of using plain Redux hooks? - **RootState/AppDispatch already configured for automatic autocomplete.**
+3. What does `as const` do on action type constants? - **Makes 'ADD_TODO' a literal type, not just string.**
+4. How does TypeScript "narrow" action types in switch cases? - **Switch cases know exact action/payload type.**
+5. What's the difference between `type` and `interface` in TypeScript? - **interface for objects, type for unions.**
+6. Why is the union type `TodoActionTypes` important? - **Ensures actions match defined types. Prevents invalid actions.**
+7. How does `ReturnType<typeof store.getState>` work? - **Automatically extracts state type from store.**
+8. What would happen if you removed types and used `any` everywhere? - **No autocomplete, no errors, no type safety. Basically JavaScript.**
 
 ---
-
-## Need Help?
-
-As you work through this:
-
-- TypeScript errors are your friend - read them carefully!
-- Hover over variables in VS Code to see their inferred types
-- Use `console.log` with types to understand what you're working with
-- The TypeScript playground (typescriptlang.org/play) is great for testing concepts
-
-Come back with specific questions about:
-
-- Type errors you don't understand
-- When to use `type` vs `interface`
-- How generics work in Redux hooks
-- Anything else!
-
-**Good luck! TypeScript + Redux is a powerful combination that will make you a better developer.** 🚀
