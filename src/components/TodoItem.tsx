@@ -59,7 +59,7 @@ export const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
         </button>
         <button
           onClick={handleCancel}
-          className="px-3 py-1 bg-gray-500 text-white rounded hover:bg-gray-600 transition colors"
+          className="px-3 py-1 bg-gray-500 text-white rounded hover:bg-gray-600 transition-colors"
         >
           Cancel
         </button>

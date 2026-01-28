@@ -38,11 +38,13 @@
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"];
   ```
 - [x] Open `src/index.css` and replace everything with:
+
   ```css
-  @tailwind base;
-  @tailwind components;
-  @tailwind utilities;
+  @import "tailwindcss";
   ```
+
+  npm install -D tailwindcss@next
+
 - [x] Test Tailwind: Add `className="text-blue-500 text-2xl"` to something in `App.tsx` and verify it works
 
 ### 1.5 Clean Up Project Structure
@@ -168,7 +170,7 @@ const myElement = document.getElementById("root") as HTMLElement;
 
 ### 4.4 Define Action Payload Types
 
-- [ ] In the same file (`actionTypes.ts`), add:
+- [x] In the same file (`actionTypes.ts`), add:
 
   ```typescript
   import { Todo } from "../types/todo.types";
@@ -588,8 +590,8 @@ const myElement = document.getElementById("root") as HTMLElement;
 
 ### 6.3 Create TodoList Component
 
-- [ ] Create file: `src/components/TodoList.tsx`
-- [ ] Build with typed selector:
+- [x] Create file: `src/components/TodoList.tsx`
+- [x] Build with typed selector:
 
   ```typescript
   import React from "react";
@@ -628,8 +630,8 @@ const myElement = document.getElementById("root") as HTMLElement;
 
 ### 6.4 Update App Component
 
-- [ ] Open `src/App.tsx`
-- [ ] Import and compose:
+- [x] Open `src/App.tsx`
+- [x] Import and compose:
 
   ```typescript
   import React from "react";
@@ -661,10 +663,10 @@ const myElement = document.getElementById("root") as HTMLElement;
 
 ### 7.1 Test the App
 
-- [ ] Run: `npm run dev`
-- [ ] Test all CRUD operations
-- [ ] Try the toggle complete feature
-- [ ] Verify everything works!
+- [x] Run: `npm run dev`
+- [x] Test all CRUD operations
+- [x] Try the toggle complete feature
+- [x] Verify everything works!
 
 ### 7.2 Experience TypeScript's Benefits
 
